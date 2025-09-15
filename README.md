@@ -1,57 +1,40 @@
-# 🌼 Setting up .NET Core with TailwindCSS + DaisyUI
+
+
+# 🌼 Setup .NET Core with TailwindCSS + DaisyUI
 
 This guide explains how to add **TailwindCSS** and **DaisyUI** to a .NET Core project (e.g., Blazor Server, Razor Pages, or MVC).  
 You’ll set up TailwindCSS with the CLI, configure it for minified CSS output, and use DaisyUI components in your app.
 
----
 
-## 1. Initialize an NPM package
-Open a terminal in your **project folder** (⚠️ not the solution folder) and run:
-
+## 1. Initialize NPM
 ```bash
 npm init -y
 npm i -D tailwindcss@latest @tailwindcss/cli@latest daisyui@latest
 
-2. Add TailwindCSS + DaisyUI to your CSS
+2. Configure CSS
 
-Locate your main CSS file (commonly wwwroot/css/site.css) and add:
+In wwwroot/css/site.css add:
 
 @import "tailwindcss";
 @plugin "daisyui";
 
-3. Generate the .min.css file
+3. Generate Minified CSS
 
-We’ll generate a production-ready CSS file (site.min.css) from your development CSS (site.css).
+Input: wwwroot/css/site.css
+Output: wwwroot/css/site.min.css
 
-    Input: wwwroot/css/site.css
-
-    Output: wwwroot/css/site.min.css
-
-Now update your layout (e.g., Pages/Shared/_Layout.cshtml) to use the minified version:
+In Pages/Shared/_Layout.cshtml:
 
 <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
 
-    ℹ️ asp-append-version automatically appends a cache-busting hash to the file name, so browsers only reload it when changes are made.
+4. Add NPM Script
 
-4. Add a Tailwind watch script
-
-Edit your package.json and add a watch command:
+In package.json:
 
 "scripts": {
   "watch": "npx @tailwindcss/cli -i wwwroot/css/site.css -o wwwroot/css/site.min.css --watch"
 }
 
-5. Run Tailwind in watch mode
-
-Keep Tailwind running in the background so CSS updates automatically:
+5. Run Watch
 
 npm run watch
-
-Example output:
-
-> projectname@1.0.0 watch
-> npx @tailwindcss/cli -i wwwroot/css/site.css -o wwwroot/css/site.min.css --watch
-
-/*! 🌼 daisyUI 5.0.9 */
-≈ tailwindcss v4.0.17
-Done in 225ms
